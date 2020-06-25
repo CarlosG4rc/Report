@@ -1,0 +1,62 @@
+<script>
+    document.addEventListener('DOMContentLoaded',function(){
+        var elems = document.querySelectorAll('select');
+        var instances = M.FormSelect.init(elems);
+
+        document.addEventListener('DOMContentLoaded',function(){
+            var elems = document.querySelectorAll('.sidenav');
+            var instances = M.Sidenav.init(elems);
+        });
+        google.script.run.withSuccessHandler(completarGrupo).completar();
+        document.getElementById('grupo').addEventListener('change',function(){
+            var clase = document.getElementById('grupo').value;
+            google.script.run.withSuccessHandler(completarNombre).autocompletar(clase);
+        })
+    });
+
+    //escuchadores
+    document.getElementById('alumno').addEventListener('change', getData)
+    document.getElementById('enviar').addEventListener('click', enviar);
+
+    function enviar(){
+        var infReporte = {};
+        var group1 = document.forms[0];
+        infReporte.nombre = document.getElementById('alumno').value;
+        infReporte.grupo = document.getElementById('grupo').value;
+        infReporte.femail = document.getElementById('femail').value;
+        infReporte.descripcion = document.getElementById('desc').value;
+        infReporte.profe = document.getElementById('profesor').value;
+        if(group1[0].checked){
+            infReporte.status = group1[0].value;
+        }
+        else{
+            infReporte.status = group1[1].value;
+        }
+        google.script.run.enviarreporte(infReporte);
+        
+    }
+
+    function completarGrupo(letras){
+        var autoCompletar = document.getElementById('grupo');
+        var instances = M.Autocomplete.init(autoCompletar, {data : letras});
+    }
+    function completarNombre(alumno){
+        var autoCompletar = document.getElementById('alumno');
+        var instances = M.Autocomplete.init(autoCompletar, {data : alumno});
+    }
+    function getData(){
+        var alumno = {};
+        alumno.nombre = document.getElementById('alumno').value;
+        alumno.grupo = document.getElementById('grupo').value;
+        if(alumno.nombre.length > 12)
+        {
+            alumno.nombre = alumno.nombre.toUpperCase();
+            google.script.run.withSuccessHandler(fcorreo).getfemail(alumno);
+        }
+    }
+    function fcorreo(correof){
+        document.getElementById('femail').value = correof;
+        console.log(correof);
+        M.updateTextFields();
+    }
+</script>
