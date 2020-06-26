@@ -33,7 +33,7 @@
             infReporte.status = group1[1].value;
         }
         google.script.run.enviarreporte(infReporte);
-        
+        alert("El reporte acaba de ser enviado a " + infReporte.femail)
     }
 
     function completarGrupo(letras){
