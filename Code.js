@@ -82,6 +82,9 @@ function enviarreporte(infReporte){
  
         var doc = DocumentApp.create(infReporte.nombre + '|' + infReporte.status).addViewer(infReporte.femail);
             //Header
+        var url = doc.getUrl();
+        sheet.getRange("H" + row).setValue(url);
+            
         var ifp =      doc.addHeader().appendParagraph('Instituto Francisco Possenti');
         var frase =    doc.getHeader().appendParagraph('Per Crucem ad lucem ');
         var sec =      doc.getHeader().appendParagraph('Secundaria');
@@ -111,7 +114,7 @@ function enviarreporte(infReporte){
 
     // Obtención de los argumentos del archivo
 
-        var url = doc.getUrl();
+        
         var subject = infReporte.status + ' '  + infReporte.nombre;
         var body = infReporte.status + ' ' + url;
     
@@ -122,4 +125,3 @@ function enviarreporte(infReporte){
         
         
 }
-
