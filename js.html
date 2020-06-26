@@ -17,6 +17,8 @@
     //escuchadores
     document.getElementById('alumno').addEventListener('change', getData)
     document.getElementById('enviar').addEventListener('click', enviar);
+    document.getElementById('borrarDatos').addEventListener('click',borrar);
+    document.getElementById('borrarAlumno').addEventListener('click',changeStudent)
 
     function enviar(){
         var infReporte = {};
@@ -36,6 +38,19 @@
         alert("El reporte acaba de ser enviado a " + infReporte.femail)
     }
 
+    function borrar(){
+        document.getElementById('profesor').value = '';
+        document.getElementById('grupo').value = '';
+        document.getElementById('alumno').value = '';
+        document.getElementById('femail').value = '';
+        document.getElementById('desc').value = '';
+    }
+
+    function changeStudent(){
+        document.getElementById('grupo').value = '';
+        document.getElementById('alumno').value = '';
+        document.getElementById('femail').value = '';
+    }
     function completarGrupo(letras){
         var autoCompletar = document.getElementById('grupo');
         var instances = M.Autocomplete.init(autoCompletar, {data : letras});
