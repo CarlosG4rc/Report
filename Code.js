@@ -80,14 +80,14 @@ function enviarreporte(infReporte){
 
 // Plantilla de archivo
  
-        var doc = DocumentApp.create(infReporte.nombre + '|' + infReporte.status).addViewer(infReporte.femail);
+        var doc = DocumentApp.create(infReporte.nombre + '|' + infReporte.status).addViewer(infReporte.femail).addViewer(account);
             //Header
         var url = doc.getUrl();
         sheet.getRange("H" + row).setValue(url);
             
         var ifp =      doc.addHeader().appendParagraph('Instituto Francisco Possenti');
         var frase =    doc.getHeader().appendParagraph('Per Crucem ad lucem ');
-        var sec =      doc.getHeader().appendParagraph('Secundaria');
+        //var sec =      doc.getHeader().appendParagraph('Secundaria');
         var nom =      doc.getHeader().appendParagraph(infReporte.status);
                        doc.appendHorizontalRule();
             //Body
@@ -98,6 +98,8 @@ function enviarreporte(infReporte){
                        doc.getBody().appendParagraph('Profesor/autoridad:  ' + infReporte.profe);
                        doc.getBody().appendParagraph('    ');
                        doc.getBody().appendParagraph('Descripción de los hechos:  ' + infReporte.descripcion);
+                       doc.getBody().appendParagraph('    ');
+                       doc.getBody().appendParagraph('Fecha de los hechos:  ' + curDate);
                        doc.getBody().appendParagraph('    ');
         
             //Footer  
@@ -125,4 +127,3 @@ function enviarreporte(infReporte){
         
         
 }
-
